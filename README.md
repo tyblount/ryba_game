@@ -4,6 +4,9 @@
 
 ## Development Setup
 
+### Run
+From the root directory, run `love game`
+
 ### Repo Organization
 ```
 /
@@ -11,6 +14,20 @@
  game/       -- ryba-specific stuff that makes use of the stuff in engine/
  lib/        -- third-party stuff that shouldn't be checked in
 ```
+
+### Löve2D
+We're using the Löve2D framework to help make the more technical parts of game development easier.
+Follow the installation instructions here: https://love2d.org/wiki/Getting_Started
+
+### Live Reload with LICK
+It's a chore to have to quit the game and restart it whenever you make any changes.
+LICK aims to reload changes while the game is running.
+
+It overrides the `love.run` function, so this needs to be installed to get the game to run.
+Download the ZIP from the releases page:
+https://github.com/usysrc/LICK/releases/tag/v1.0.0
+
+Unzip the ZIP and copy the `lick.lua` file to `/lib/lick/lick.lua`.
 
 ### Prettier
 Prettier is a code formatter that helps maintain consistent code style across your project.
