@@ -57,3 +57,10 @@ Now, the LLS will be able to find it at `./lib/love2d`, as defined in `.luarc.js
 
 This process should probably be automated somehow, so that everyone involved in the project
 is using the same version of the Addon.
+
+
+## References
+Here are some resources that have been helpful so far:
+
+- [Game Programming Patterns](https://gameprogrammingpatterns.com/contents.html)
+- [How to Löve](https://sheepolution.com/learn/book/contents)
