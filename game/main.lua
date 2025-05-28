@@ -1,31 +1,15 @@
-local lick = require "./lib/lick/lick"
-lick.reset = true              -- call love.load() on every reload?
-lick.showReloadMessage = false -- print a console log on every reload?
+require "engine/init"
+require "game/classes/init"
 
-local x
-local y
-local velocity
-function love.load()
-    velocity = 100 -- pixels/s
-    x = 300
-    y = 300
+love.load = function()
+    local player = Player.new({ pos = Pos.new(200, 200), size = Size.new(50, 100) })
+    World:addEntity(player)
 end
 
-function love.update(dt)
-    if (love.keyboard.isDown("right")) then
-        x = x + velocity * dt
-    end
-    if (love.keyboard.isDown("left")) then
-        x = x - velocity * dt
-    end
-    if (love.keyboard.isDown("up")) then
-        y = y - velocity * dt
-    end
-    if (love.keyboard.isDown("down")) then
-        y = y + velocity * dt
-    end
+love.update = function(dt)
+    World:update(dt)
 end
 
-function love.draw()
-    love.graphics.rectangle("line", x, y, 50, 100)
+love.draw = function()
+    World:draw()
 end
