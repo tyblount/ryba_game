@@ -9,10 +9,10 @@ From the root directory, run `love game`
 
 ### Repo Organization
 ```
-/
- engine/     -- ryba-agnostic stuff that could be potentially re-used in another game
- game/       -- ryba-specific stuff that makes use of the stuff in engine/
- lib/        -- third-party stuff that shouldn't be checked in
+<root>
+  engine/     -- ryba-agnostic stuff that could be potentially re-used in another game
+  game/       -- ryba-specific stuff that makes use of the stuff in engine/
+  lib/        -- third-party stuff that shouldn't be checked in
 ```
 
 ### Löve2D
@@ -28,6 +28,7 @@ Download the ZIP from the releases page:
 https://github.com/usysrc/LICK/releases/tag/v1.0.0
 
 Unzip the ZIP and copy the `lick.lua` file to `/lib/lick/lick.lua`.
+
 This process should probably be automated somehow.
 
 ### Prettier
