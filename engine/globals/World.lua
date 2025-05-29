@@ -1,18 +1,21 @@
-local World = {
+local world = {
     entities = {},
-    addEntity = function(self, e)
-        table.insert(self.entities, e)
-    end,
-    draw = function(self)
-        for _, e in ipairs(self.entities) do
-            e:draw()
-        end
-    end,
-    update = function(self, dt)
-        for _, e in ipairs(self.entities) do
-            e:update(dt)
-        end
-    end
 }
 
-return World
+function world:addEntity(e)
+    table.insert(self.entities, e)
+end
+
+function world:draw()
+    for _, e in ipairs(self.entities) do
+        e:draw()
+    end
+end
+
+function world:update(dt)
+    for _, e in ipairs(self.entities) do
+        e:update(dt)
+    end
+end
+
+return world

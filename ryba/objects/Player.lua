@@ -1,10 +1,16 @@
-require "engine/init"
+local Player = Object:extend()
 
-local draw = function(self)
+function Player:new(pos)
+    self.pos = pos
+    self.size = Size(50, 100)
+    self.v = 200
+end
+
+function Player:draw()
     love.graphics.rectangle("line", self.pos.x, self.pos.y, self.size.w, self.size.h)
 end
 
-local update = function(self, dt)
+function Player:update(dt)
     if (love.keyboard.isDown("right")) then
         self.pos.x = self.pos.x + self.v * dt
     end
@@ -18,18 +24,5 @@ local update = function(self, dt)
         self.pos.y = self.pos.y + self.v * dt
     end
 end
-
-local new = function(o)
-    o = o or {}
-    o = Entity.new(o)
-    o.v = 200
-    o.draw = draw
-    o.update = update
-    return o
-end
-
-local Player = {
-    new = new
-}
 
 return Player

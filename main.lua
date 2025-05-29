@@ -1,8 +1,6 @@
-require "engine/init"
-require "game/classes/init"
-
+-- main.lua: Love runs this file as the entrypoint for the game.
 love.load = function()
-    local player = Player.new({ pos = Pos.new(200, 200), size = Size.new(50, 100) })
+    local player = Player(Pos(200, 200))
     World:addEntity(player)
 end
 

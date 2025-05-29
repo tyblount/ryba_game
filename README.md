@@ -1,22 +1,24 @@
 # ryba_
 2d Fishing Simulator via Lua
 
-
 ## Development Setup
 
 ### Run
-From the root directory, run `love game`
+From the root directory, run `love .`
 
 ### Repo Organization
 ```
 <root>
   engine/     -- ryba-agnostic stuff that could be potentially re-used in another game
-  game/       -- ryba-specific stuff that makes use of the stuff in engine/
+  ryba/       -- ryba-specific stuff that may also make use of the stuff in engine/
   lib/        -- third-party stuff that shouldn't be checked in
+  conf.lua    -- special file that love runs before it starts loading the game
+  main.lua    -- special file that love runs as the entrypoint for the game
 ```
 
 ### Löve2D
 We're using the Löve2D framework to help make the more technical parts of game development easier.
+It's hard to type the o-with-umlaut 'ö' so it may just be referred to as 'love' elsewhere.
 Follow the installation instructions here: https://love2d.org/wiki/Getting_Started
 
 ### Live Reload
@@ -39,8 +41,9 @@ https://github.com/rxi/classic/blob/master/classic.lua
 
 Using OOP certainly isn't a requirement for game dev in Lua,
 but it's familiar which has value on its own.
-Also, letting instances reference methods on classes via metatable lookups
-rather than with closures works better with Live Reloading.
+Letting instances reference methods on classes via metatable lookups
+rather than with closures works better with live reloading.
+It also seems to help the language server with code inference.
 
 
 ### Formatting with Prettier
