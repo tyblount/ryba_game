@@ -27,11 +27,23 @@ It overrides the `love.run` function, so this needs to be installed to get the g
 Download the ZIP from the releases page:
 https://github.com/usysrc/LICK/releases/tag/v1.0.0
 
-Unzip the ZIP and copy the `lick.lua` file to `/lib/lick/lick.lua`.
+Unzip the ZIP and copy the `lick.lua` file to `/lib/lick.lua`.
 
-This process should probably be automated somehow.
+TODO: The process of downloading dependencies should probably be automated somehow.
 
-### Prettier
+### OOP
+We're using `classic` to implement Object-Oriented Programming in Lua.
+
+Copy the file from GitHub to `/lib/classic.lua`:
+https://github.com/rxi/classic/blob/master/classic.lua
+
+Using OOP certainly isn't a requirement for game dev in Lua,
+but it's familiar which has value on its own.
+Also, letting instances reference methods on classes via metatable lookups
+rather than with closures works better with Live Reloading.
+
+
+### Formatting with Prettier
 Prettier is a code formatter that helps maintain consistent code style across your project.
 It makes styling decisions for you (and your team) so that you don't have to spend time on it.
 
@@ -47,18 +59,15 @@ Follow the installation instructions for your editor here:
 https://luals.github.io/#vscode-install
 
 #### Configuration
-Configuration is defined in `.luarc.json`
+Configuration for LLS is defined in `.luarc.json`
 
 #### Install the Löve LLS Addon
 To get editor support for Löve, first we need to install the LLS Addon.
 Open this link, then follow the `module` link and download the code there as a ZIP:
 https://github.com/LuaLS/LLS-Addons/tree/main/addons/love2d
 
-Unzip that code underneath `./lib` and rename it to `love2d`.
-Now, the LLS will be able to find it at `./lib/love2d`, as defined in `.luarc.json`.
-
-This process should probably be automated somehow, so that everyone involved in the project
-is using the same version of the Addon.
+Unzip that code underneath `./lib/types` and rename it to `love2d`.
+Now, the LLS will be able to find type definitions at `./lib/types/love2d`, as defined in `.luarc.json`.
 
 
 ## References
