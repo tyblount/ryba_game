@@ -1,17 +1,5 @@
 -- conf.lua: Love runs this file before running main.lua
 
--- Simple OOP for Lua
-Object = require "lib/classic"
-
--- Enable live reload
-local lick = require "lib/lick"
-lick.reset = false             -- call love.load() on every reload?
-lick.showReloadMessage = false -- print a console log on every reload?
-
--- Push all of our classes into the global space
-require "engine"
-require "game"
-
 function love.conf(t)
     t.title = "Ryba"           -- The title of the window
     t.version = "11.4"         -- The LÖVE version this game was made for

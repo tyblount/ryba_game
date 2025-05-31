@@ -9,11 +9,12 @@ From the root directory, run `love .`
 ### Repo Organization
 ```
 <root>
-  engine/     -- ryba-agnostic stuff that could be potentially re-used in another game
-  game/       -- ryba-specific stuff that may also make use of the stuff in engine/
   lib/        -- third-party stuff that shouldn't be checked in
-  conf.lua    -- special file that love runs before it starts loading the game
-  main.lua    -- special file that love runs as the entrypoint for the game
+  src/        -- the majority of the code we're writing lives here
+    game/     -- code specifically for the ryba game
+    engine/   -- code that isn't ryba-specific and could be re-used in another game
+  conf.lua    -- special file that love runs before main.lua
+  main.lua    -- special file that love runs to start the game
 ```
 
 ### Löve2D
@@ -23,28 +24,25 @@ Follow the installation instructions here: https://love2d.org/wiki/Getting_Start
 
 ### Live Reload
 It's a chore to have to quit the game and restart it whenever you make any changes.
-The LICK package aims to reload changes while the game is running.
+The `lurker` package aims to reload changes while the game is running.
+It also relies on `lume`, which is a library of Lua helper functions written by the
+same developer, [rxi](http://github.com/rxi), aimed at game development.
 
-It overrides the `love.run` function, so this needs to be installed to get the game to run.
-Download the ZIP from the releases page:
-https://github.com/usysrc/LICK/releases/tag/v1.0.0
-
-Unzip the ZIP and copy the `lick.lua` file to `/lib/lick.lua`.
+Download/copy the files from GitHub to `lib/` (e.g. `lib/lume.lua`)
+- [lume.lua](https://github.com/rxi/lume/blob/98847e7812cf28d3d64b289b03fad71dc704547d/lume.lua)
+- [lurker.lua](https://github.com/rxi/lurker/blob/03d1373911f586c1c6d5d557527b5d510190fd94/lurker.lua)
 
 TODO: The process of downloading dependencies should probably be automated somehow.
 
 ### OOP
 We're using `classic` to implement Object-Oriented Programming in Lua.
 
-Copy the file from GitHub to `/lib/classic.lua`:
-https://github.com/rxi/classic/blob/master/classic.lua
+Download/copy the file from GitHub to `lib/classic.lua`:
+- [classic.lua](https://github.com/rxi/classic/blob/e5610756c98ac2f8facd7ab90c94e1a097ecd2c6/classic.lua)
 
-Using OOP certainly isn't a requirement for game dev in Lua,
-but it's familiar which has value on its own.
-Letting instances reference methods on classes via metatable lookups
-rather than with closures works better with live reloading.
-It also seems to help the language server with code inference.
-
+Using OOP certainly isn't a requirement for game dev in Lua, but it's familiar which has value on its own.
+Plus, letting instances reference methods and fields on classes via metatable lookups
+rather than maintaining references with closures better enables live reloading.
 
 ### Formatting with Prettier
 Prettier is a code formatter that helps maintain consistent code style across your project.
@@ -67,14 +65,14 @@ Configuration for LLS is defined in `.luarc.json`
 #### Install the Löve LLS Addon
 To get editor support for Löve, first we need to install the LLS Addon.
 Open this link, then follow the `module` link and download the code there as a ZIP:
-https://github.com/LuaLS/LLS-Addons/tree/main/addons/love2d
+- [Love2D LLS Addon](https://github.com/LuaCATS/love2d/tree/97fa46cd694e09f953157a5c71e7e9adeb99d0c8)
 
-Unzip that code underneath `./lib/types` and rename it to `love2d`.
-Now, the LLS will be able to find type definitions at `./lib/types/love2d`, as defined in `.luarc.json`.
-
+Unzip that code underneath `lib/types` and rename it to `love2d`.
+Now, the LLS will be able to find type definitions at `lib/types/love2d`, as defined in `.luarc.json`.
 
 ## References
 Here are some resources that have been helpful so far:
 
-- [Game Programming Patterns](https://gameprogrammingpatterns.com/contents.html)
-- [How to Löve](https://sheepolution.com/learn/book/contents)
+- [Game Programming Patterns by Robert Nystrom](https://gameprogrammingpatterns.com/contents.html)
+- [Love2D Basics on YT by Challacade](https://www.youtube.com/playlist?list=PLqPLyUreLV8DrLcLvQQ64Uz_h_JGLgGg2)
+- [How to Löve by Sheepolution](https://sheepolution.com/learn/book/contents)
