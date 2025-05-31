@@ -3,14 +3,14 @@
 -- Simple OOP for Lua
 Object = require "lib/classic"
 
--- Push all of our classes into the global space
-require "engine"
-require "game"
-
 -- Enable live reload
 local lick = require "lib/lick"
 lick.reset = false             -- call love.load() on every reload?
 lick.showReloadMessage = false -- print a console log on every reload?
+
+-- Push all of our classes into the global space
+require "engine"
+require "game"
 
 function love.conf(t)
     t.title = "Ryba"           -- The title of the window
