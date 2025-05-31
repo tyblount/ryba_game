@@ -5,7 +5,7 @@ Object = require "lib/classic"
 
 -- Push all of our classes into the global space
 require "engine"
-require "ryba"
+require "game"
 
 -- Enable live reload
 local lick = require "lib/lick"

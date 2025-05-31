@@ -10,7 +10,7 @@ From the root directory, run `love .`
 ```
 <root>
   engine/     -- ryba-agnostic stuff that could be potentially re-used in another game
-  ryba/       -- ryba-specific stuff that may also make use of the stuff in engine/
+  game/       -- ryba-specific stuff that may also make use of the stuff in engine/
   lib/        -- third-party stuff that shouldn't be checked in
   conf.lua    -- special file that love runs before it starts loading the game
   main.lua    -- special file that love runs as the entrypoint for the game
