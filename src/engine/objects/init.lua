@@ -1,3 +1,4 @@
+Background = require "src/engine/objects/Background"
 Entity = require "src/engine/objects/Entity"
 Pos = require "src/engine/objects/Pos"
 Size = require "src/engine/objects/Size"

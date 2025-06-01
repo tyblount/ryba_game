@@ -1,8 +1,8 @@
 local Game = {}
 
 function Game.load()
-    local player = Player(Pos(200, 200))
-    World:addEntity(player)
+    World:addEntity(Background("assets/bg.png"))
+    World:addEntity(Player(Pos(200, 200)))
 end
 
 function Game.update(dt)
