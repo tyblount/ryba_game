@@ -26,13 +26,18 @@ We're using the Löve2D framework to help make the more technical parts of game 
 It's hard to type the o-with-umlaut 'ö' so it may just be referred to as 'love' elsewhere.
 Follow the [installation instructions](https://love2d.org/wiki/Getting_Started) to install it for your platform.
 
+### Sprite Animation
+Using `anim8` library to lookup animation frames in sprite sheets and animate those frames.
+Download/copy the file from GitHub to `lib/` (e.g. `lib/anim8.lua`)
+- [anim8.lua](https://github.com/kikito/anim8/blob/bd38defa844ab2dfa3bf416a10c45ce376ba4c50/anim8.lua)
+
 ### Live Reload
 It's a chore to have to quit the game and restart it whenever you make any changes.
 The `lurker` package aims to reload changes while the game is running.
 It also relies on `lume`, which is a library of Lua helper functions written by the
 same developer, [rxi](http://github.com/rxi), aimed at game development.
 
-Download/copy the files from GitHub to `lib/` (e.g. `lib/lume.lua`)
+Download/copy from GitHub to `lib/`
 - [lume.lua](https://github.com/rxi/lume/blob/98847e7812cf28d3d64b289b03fad71dc704547d/lume.lua)
 - [lurker.lua](https://github.com/rxi/lurker/blob/03d1373911f586c1c6d5d557527b5d510190fd94/lurker.lua)
 
@@ -41,7 +46,7 @@ TODO: The process of downloading dependencies should probably be automated someh
 ### OOP
 We're using `classic` to implement Object-Oriented Programming in Lua.
 
-Download/copy the file from GitHub to `lib/classic.lua`:
+Download/copy from GitHub to `lib/classic.lua`:
 - [classic.lua](https://github.com/rxi/classic/blob/e5610756c98ac2f8facd7ab90c94e1a097ecd2c6/classic.lua)
 
 Using OOP certainly isn't a requirement for game dev in Lua, but it's familiar which has value on its own.

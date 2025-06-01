@@ -1,89 +1,95 @@
 local Player = Object:extend()
 
-local MOVE_SPEED = 100
+local WALK_SPEED = 100
 local SPRITE_SHEET = love.graphics.newImage("assets/player_sprites.png")
-local STATE = { IDLE = 0, WALKING = 1, }
-local WALK_STATE = { DOWN = 0, UP = 1, LEFT = 2, RIGHT = 3 } -- Sprite sheet order is DOWN, UP, LEFT, RIGHT
-local SPRITE_W = 16
-local SPRITE_H = 16
-
-local function createWalkAnimation(image, w, h, duration)
-    local animation = {}
-    animation.duration = duration or 1
-    animation.currentTime = 0
-    animation.spriteSheet = image;
-    animation.quads = {}
-
-    for x = 0, math.floor(image:getWidth() / w) - 1 do
-        for y = 0, 3 do -- 4 total walk animation steps, laid out vertically
-            animation.quads[#animation.quads + 1] = love.graphics.newQuad(x * w, y * h + 1, w, h, image:getDimensions())
-        end
-    end
-
-    return animation
-end
+local SPRITE_W = 15
+local SPRITE_H = 15
+local SPRITE_GRID = anim8.newGrid(SPRITE_W, SPRITE_H, SPRITE_SHEET:getWidth(), SPRITE_SHEET:getHeight(), 0, 0, 1)
+local SPRITE_FRAME_TIME = 0.2
+local STATE = { IDLE = 1, WALKING = 2, }
+local DIRECTION = { DOWN = 1, UP = 2, LEFT = 3, RIGHT = 4 } -- Sprite sheet order is DOWN, UP, LEFT, RIGHT
 
 function Player:new(pos)
     self.pos = pos
 
-    self.animation = createWalkAnimation(SPRITE_SHEET, SPRITE_W, SPRITE_H, 1)
-    self.scale = Vec2(2, 2)
+    self.animations = {
+        idleDown = anim8.newAnimation(SPRITE_GRID(DIRECTION.DOWN, 1), SPRITE_FRAME_TIME),
+        idleUp = anim8.newAnimation(SPRITE_GRID(DIRECTION.UP, 1), SPRITE_FRAME_TIME),
+        idleLeft = anim8.newAnimation(SPRITE_GRID(DIRECTION.LEFT, 1), SPRITE_FRAME_TIME),
+        idleRight = anim8.newAnimation(SPRITE_GRID(DIRECTION.RIGHT, 1), SPRITE_FRAME_TIME),
+        walkDown = anim8.newAnimation(SPRITE_GRID(DIRECTION.DOWN, '1-4'), SPRITE_FRAME_TIME),
+        walkUp = anim8.newAnimation(SPRITE_GRID(DIRECTION.UP, '1-4'), SPRITE_FRAME_TIME),
+        walkLeft = anim8.newAnimation(SPRITE_GRID(DIRECTION.LEFT, '1-4'), SPRITE_FRAME_TIME),
+        walkRight = anim8.newAnimation(SPRITE_GRID(DIRECTION.RIGHT, '1-4'), SPRITE_FRAME_TIME),
+    }
+
+    self.animation = self.animations.idleDown
+    self.scale = Vec2(3, 4)
     self.state = STATE.IDLE
-    self.walkState = WALK_STATE.DOWN
+    self.direction = DIRECTION.DOWN
 end
 
-function Player:animate()
-    -- 4 total movement directions, so calculate the number of steps per move animation
-    local numSteps = #self.animation.quads / 4
-    -- IDLE state just sits on the first frame of the walk animation
-    local step = 1
+function Player:updateAnimation(dt)
+    local animation
     if self.state == STATE.WALKING then
-        -- Figure out which frame of the walk animation we need to show
-        step = math.floor(self.animation.currentTime / self.animation.duration * numSteps) + 1
+        if self.direction == DIRECTION.UP then
+            animation = self.animations.walkUp
+        elseif self.direction == DIRECTION.LEFT then
+            animation = self.animations.walkLeft
+        elseif self.direction == DIRECTION.RIGHT then
+            animation = self.animations.walkRight
+        else
+            animation = self.animations.walkDown
+        end
+    else -- IDLE
+        if self.direction == DIRECTION.UP then
+            animation = self.animations.idleUp
+        elseif self.direction == DIRECTION.LEFT then
+            animation = self.animations.idleLeft
+        elseif self.direction == DIRECTION.RIGHT then
+            animation = self.animations.idleRight
+        else
+            animation = self.animations.idleDown
+        end
     end
-    -- All sprite steps are stored linearly, so we need to index to the animation frames based on walk direction.
-    step = (self.walkState * numSteps) + step
-    love.graphics.draw(self.animation.spriteSheet, self.animation.quads[step], self.pos.x, self.pos.y, self.pos.r,
-        self.scale.x, self.scale.y)
+    animation:update(dt)
+    self.animation = animation
 end
 
 function Player:draw()
-    self:animate()
+    self.animation:draw(SPRITE_SHEET, self.pos.x, self.pos.y, self.pos.r, self.scale.x, self.scale.y)
 end
 
 function Player:update(dt)
-    self.animation.currentTime = self.animation.currentTime + dt
-    if self.animation.currentTime >= self.animation.duration then
-        self.animation.currentTime = self.animation.currentTime - self.animation.duration
-    end
-
     self.state = STATE.IDLE
-    if ((love.keyboard.isDown("f") and love.keyboard.isDown("s")) or
-            (love.keyboard.isDown("e") and love.keyboard.isDown("d"))) then
+    if (love.keyboard.isDown("f") and love.keyboard.isDown("s")) or
+        (love.keyboard.isDown("e") and love.keyboard.isDown("d")) then
         -- Competing inputs: player is going nowhere.
         self.state = STATE.IDLE
+        self.direction = DIRECTION.DOWN
     else
-        if (love.keyboard.isDown("f")) then
+        if love.keyboard.isDown("f") then
             self.state = STATE.WALKING
-            self.walkState = WALK_STATE.RIGHT
-            self.pos.x = self.pos.x + MOVE_SPEED * dt
+            self.direction = DIRECTION.RIGHT
+            self.pos.x = self.pos.x + WALK_SPEED * dt
         end
-        if (love.keyboard.isDown("s")) then
+        if love.keyboard.isDown("s") then
             self.state = STATE.WALKING
-            self.walkState = WALK_STATE.LEFT
-            self.pos.x = self.pos.x - MOVE_SPEED * dt
+            self.direction = DIRECTION.LEFT
+            self.pos.x = self.pos.x - WALK_SPEED * dt
         end
-        if (love.keyboard.isDown("e")) then
+        if love.keyboard.isDown("e") then
             self.state = STATE.WALKING
-            self.walkState = WALK_STATE.UP
-            self.pos.y = self.pos.y - MOVE_SPEED * dt
+            self.direction = DIRECTION.UP
+            self.pos.y = self.pos.y - WALK_SPEED * dt
         end
-        if (love.keyboard.isDown("d")) then
+        if love.keyboard.isDown("d") then
             self.state = STATE.WALKING
-            self.walkState = WALK_STATE.DOWN
-            self.pos.y = self.pos.y + MOVE_SPEED * dt
+            self.direction = DIRECTION.DOWN
+            self.pos.y = self.pos.y + WALK_SPEED * dt
         end
     end
+    self:updateAnimation(dt)
 end
 
 return Player
