@@ -16,7 +16,7 @@ local function createWalkAnimation(image, w, h, duration)
 
     for x = 0, math.floor(image:getWidth() / w) - 1 do
         for y = 0, 3 do -- 4 total walk animation steps, laid out vertically
-            animation.quads[#animation.quads + 1] = love.graphics.newQuad(x * w, y * h, w, h, image:getDimensions())
+            animation.quads[#animation.quads + 1] = love.graphics.newQuad(x * w, y * h + 1, w, h, image:getDimensions())
         end
     end
 
