@@ -9,6 +9,7 @@ From the root directory, run `love .`
 ### Repo Organization
 ```
 <root>
+  assets/     -- sprites, backgrounds, sounds, etc.
   lib/        -- third-party stuff that shouldn't be checked in
   src/        -- the majority of the code we're writing lives here
     game/     -- code specifically for the ryba game
