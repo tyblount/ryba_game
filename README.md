@@ -4,7 +4,10 @@
 ## Development Setup
 
 ### Run
-From the root directory, run `love .`
+From the root directory, run
+```sh
+$ love .
+```
 
 ### Repo Organization
 ```
@@ -12,8 +15,8 @@ From the root directory, run `love .`
   assets/     -- sprites, backgrounds, sounds, etc.
   lib/        -- third-party stuff that shouldn't be checked in
   src/        -- the majority of the code we're writing lives here
-    game/     -- code specifically for the ryba game
     engine/   -- code that isn't ryba-specific and could be re-used in another game
+    game/     -- code specifically for the ryba game
   conf.lua    -- special file that love runs before main.lua
   main.lua    -- special file that love runs to start the game
 ```
@@ -21,7 +24,7 @@ From the root directory, run `love .`
 ### Löve2D
 We're using the Löve2D framework to help make the more technical parts of game development easier.
 It's hard to type the o-with-umlaut 'ö' so it may just be referred to as 'love' elsewhere.
-Follow the installation instructions here: https://love2d.org/wiki/Getting_Started
+Follow the [installation instructions](https://love2d.org/wiki/Getting_Started) to install it for your platform.
 
 ### Live Reload
 It's a chore to have to quit the game and restart it whenever you make any changes.
@@ -49,26 +52,23 @@ rather than maintaining references with closures better enables live reloading.
 Prettier is a code formatter that helps maintain consistent code style across your project.
 It makes styling decisions for you (and your team) so that you don't have to spend time on it.
 
-Follow the installation instructions for your editor here:
-https://prettier.io/docs/install
+Follow the [installation instructions](https://prettier.io/docs/install) for your editor of choice.
 
 ### Lua Language Server
 The Lua Language Server (LLS) makes coding with Lua in an editor a lot easier.
-It provides a bunch of features like code completion, error checking, and documentation lookup.
-https://luals.github.io/#features
+It provides [a bunch of features](https://luals.github.io/#features) like code completion, error checking, and documentation lookup.
 
-Follow the installation instructions for your editor here:
-https://luals.github.io/#vscode-install
+Follow the [installation instructions](https://luals.github.io/#vscode-install) for your editor of choice.
 
 #### Configuration
 Configuration for LLS is defined in `.luarc.json`
 
 #### Install the Löve LLS Addon
 To get editor support for Löve, first we need to install the LLS Addon.
-Open this link, then follow the `module` link and download the code there as a ZIP:
+Follow this link and download the code there as a ZIP:
 - [Love2D LLS Addon](https://github.com/LuaCATS/love2d/tree/97fa46cd694e09f953157a5c71e7e9adeb99d0c8)
 
-Unzip that code underneath `lib/types` and rename it to `love2d`.
+Unzip the file you just downloaded, place it in `lib/types`, and rename it to `love2d`.
 Now, the LLS will be able to find type definitions at `lib/types/love2d`, as defined in `.luarc.json`.
 
 ## References
