@@ -12,17 +12,13 @@ function Player:new(pos)
     self.pos = pos
 
     self.animations = {
-        idleDown = anim8.newAnimation(SPRITE_GRID(DIRECTION.DOWN, 1), SPRITE_FRAME_TIME),
-        idleUp = anim8.newAnimation(SPRITE_GRID(DIRECTION.UP, 1), SPRITE_FRAME_TIME),
-        idleLeft = anim8.newAnimation(SPRITE_GRID(DIRECTION.LEFT, 1), SPRITE_FRAME_TIME),
-        idleRight = anim8.newAnimation(SPRITE_GRID(DIRECTION.RIGHT, 1), SPRITE_FRAME_TIME),
         walkDown = anim8.newAnimation(SPRITE_GRID(DIRECTION.DOWN, '1-4'), SPRITE_FRAME_TIME),
         walkUp = anim8.newAnimation(SPRITE_GRID(DIRECTION.UP, '1-4'), SPRITE_FRAME_TIME),
         walkLeft = anim8.newAnimation(SPRITE_GRID(DIRECTION.LEFT, '1-4'), SPRITE_FRAME_TIME),
         walkRight = anim8.newAnimation(SPRITE_GRID(DIRECTION.RIGHT, '1-4'), SPRITE_FRAME_TIME),
     }
 
-    self.animation = self.animations.idleDown
+    self.animation = self.animations.walkDown
     self.walkSpeed = 200
     self.scale = Vec2(3, 4)
     self.state = STATE.IDLE
@@ -30,30 +26,20 @@ function Player:new(pos)
 end
 
 function Player:updateAnimation(dt)
-    local animation
     if self.state == STATE.WALKING then
         if self.direction == DIRECTION.UP then
-            animation = self.animations.walkUp
+            self.animation = self.animations.walkUp
         elseif self.direction == DIRECTION.LEFT then
-            animation = self.animations.walkLeft
+            self.animation = self.animations.walkLeft
         elseif self.direction == DIRECTION.RIGHT then
-            animation = self.animations.walkRight
+            self.animation = self.animations.walkRight
         else
-            animation = self.animations.walkDown
+            self.animation = self.animations.walkDown
         end
+        self.animation:update(dt)
     else -- IDLE
-        if self.direction == DIRECTION.UP then
-            animation = self.animations.idleUp
-        elseif self.direction == DIRECTION.LEFT then
-            animation = self.animations.idleLeft
-        elseif self.direction == DIRECTION.RIGHT then
-            animation = self.animations.idleRight
-        else
-            animation = self.animations.idleDown
-        end
+        self.animation:gotoFrame(1)
     end
-    animation:update(dt)
-    self.animation = animation
 end
 
 function Player:draw()
