@@ -1,16 +1,23 @@
-local Game = {}
+Game = {
+    world = World()
+}
 
-function Game.load()
-    World:addEntity(Background("assets/bg.png"))
-    World:addEntity(Player(Pos(200, 200)))
+function Game.start()
+    Game.world:addEntity(Background("assets/bg.png"))
+    Game.world:addEntity(Player(Pos(200, 200)))
+end
+
+function Game.reset()
+    Game.world = World()
+    Game.start()
 end
 
 function Game.update(dt)
-    World:update(dt)
+    Game.world:update(dt)
 end
 
 function Game.draw()
-    World:draw()
+    Game.world:draw()
 end
 
 return Game

@@ -1,6 +1,8 @@
-local World = {
-    entities = {},
-}
+World = Object:extend()
+
+function World:new()
+    self.entities = {}
+end
 
 function World:addEntity(e)
     table.insert(self.entities, e)
@@ -17,5 +19,3 @@ function World:update(dt)
         e:update(dt)
     end
 end
-
-return World

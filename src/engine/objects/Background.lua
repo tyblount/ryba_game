@@ -1,4 +1,4 @@
-local Background = Object:extend()
+Background = Object:extend()
 
 function Background:new(path)
     self.image = love.graphics.newImage(path)
@@ -11,5 +11,3 @@ end
 
 function Background:update()
 end
-
-return Background

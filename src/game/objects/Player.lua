@@ -1,11 +1,10 @@
-local Player = Object:extend()
+Player = Object:extend()
 
-local WALK_SPEED = 100
 local SPRITE_SHEET = love.graphics.newImage("assets/player_sprites.png")
+local SPRITE_FRAME_TIME = 0.2
 local SPRITE_W = 15
 local SPRITE_H = 15
 local SPRITE_GRID = anim8.newGrid(SPRITE_W, SPRITE_H, SPRITE_SHEET:getWidth(), SPRITE_SHEET:getHeight(), 0, 0, 1)
-local SPRITE_FRAME_TIME = 0.2
 local STATE = { IDLE = 1, WALKING = 2, }
 local DIRECTION = { DOWN = 1, UP = 2, LEFT = 3, RIGHT = 4 } -- Sprite sheet order is DOWN, UP, LEFT, RIGHT
 
@@ -24,6 +23,7 @@ function Player:new(pos)
     }
 
     self.animation = self.animations.idleDown
+    self.walkSpeed = 200
     self.scale = Vec2(3, 4)
     self.state = STATE.IDLE
     self.direction = DIRECTION.DOWN
@@ -66,30 +66,27 @@ function Player:update(dt)
         (love.keyboard.isDown("e") and love.keyboard.isDown("d")) then
         -- Competing inputs: player is going nowhere.
         self.state = STATE.IDLE
-        self.direction = DIRECTION.DOWN
     else
         if love.keyboard.isDown("f") then
             self.state = STATE.WALKING
             self.direction = DIRECTION.RIGHT
-            self.pos.x = self.pos.x + WALK_SPEED * dt
+            self.pos.x = self.pos.x + self.walkSpeed * dt
         end
         if love.keyboard.isDown("s") then
             self.state = STATE.WALKING
             self.direction = DIRECTION.LEFT
-            self.pos.x = self.pos.x - WALK_SPEED * dt
+            self.pos.x = self.pos.x - self.walkSpeed * dt
         end
         if love.keyboard.isDown("e") then
             self.state = STATE.WALKING
             self.direction = DIRECTION.UP
-            self.pos.y = self.pos.y - WALK_SPEED * dt
+            self.pos.y = self.pos.y - self.walkSpeed * dt
         end
         if love.keyboard.isDown("d") then
             self.state = STATE.WALKING
             self.direction = DIRECTION.DOWN
-            self.pos.y = self.pos.y + WALK_SPEED * dt
+            self.pos.y = self.pos.y + self.walkSpeed * dt
         end
     end
     self:updateAnimation(dt)
 end
-
-return Player

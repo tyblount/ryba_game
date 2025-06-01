@@ -14,7 +14,8 @@ require "src/engine"
 require "src/game"
 
 function love.load()
-    Game.load()
+    lurker.postswap = Game.reset
+    Game.start()
 end
 
 function love.update(dt)
