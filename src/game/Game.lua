@@ -2,14 +2,14 @@ Game = {
     world = World()
 }
 
-function Game.start()
-    Game.world:addEntity(Background("assets/bg.png"))
+function Game.load()
+    Game.world:addEntity(Map("maps/pond.lua"))
     Game.world:addEntity(Player(Pos(200, 200)))
 end
 
 function Game.reset()
     Game.world = World()
-    Game.start()
+    Game.load()
 end
 
 function Game.update(dt)

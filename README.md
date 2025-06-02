@@ -31,6 +31,16 @@ Using `anim8` library to lookup animation frames in sprite sheets and animate th
 Download/copy the file from GitHub to `lib/` (e.g. `lib/anim8.lua`)
 - [anim8.lua](https://github.com/kikito/anim8/blob/bd38defa844ab2dfa3bf416a10c45ce376ba4c50/anim8.lua)
 
+### Maps and Tilesets
+Using `Tiled` to create tilemaps and tilesets, which can be downloaded from the website:
+- https://www.mapeditor.org/download.html
+
+And then we're using `Simple-Tiled-Implementation` to load in the map data and render it
+using love.
+
+Download the ZIP from GitHub, and copy just the `sti` folder into `lib/`
+- [Simple-Tiled-Implementation](https://github.com/karai17/Simple-Tiled-Implementation/tree/master)
+
 ### Live Reload
 It's a chore to have to quit the game and restart it whenever you make any changes.
 The `lurker` package aims to reload changes while the game is running.

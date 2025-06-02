@@ -9,13 +9,15 @@ local lurker = require("lib/lurker")
 lurker.path = "src"
 -- Sprite loading and animation
 anim8 = require "lib/anim8"
+-- Tilemap loading and rendering
+sti = require "lib/sti"
 -- Push all of our classes into the global space
 require "src/engine"
 require "src/game"
 
 function love.load()
     lurker.postswap = Game.reset
-    Game.start()
+    Game.load()
 end
 
 function love.update(dt)

@@ -19,8 +19,8 @@ function Player:new(pos)
     }
 
     self.animation = self.animations.walkDown
-    self.walkSpeed = 200
-    self.scale = Vec2(3, 4)
+    self.walkSpeed = 100
+    self.scale = Vec2(1, 1)
     self.state = STATE.IDLE
     self.direction = DIRECTION.DOWN
 end

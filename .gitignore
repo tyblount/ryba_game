@@ -1,5 +1,9 @@
 # Third-party libraries
 lib/*
 
+# Tiled editor files
+*.tiled-project
+*.tiled-session
+
 # MacOS
 .DS_Store
