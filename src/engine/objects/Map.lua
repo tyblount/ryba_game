@@ -5,7 +5,7 @@ function Map:new(path)
 end
 
 function Map:draw()
-    self.gameMap:draw()
+    self.gameMap:draw(0, 0, Game.scale)
 end
 
 function Map:update()

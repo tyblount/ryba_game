@@ -19,8 +19,7 @@ function Player:new(pos)
     }
 
     self.animation = self.animations.walkDown
-    self.walkSpeed = 100
-    self.scale = Vec2(1, 1)
+    self.walkSpeed = 200
     self.state = STATE.IDLE
     self.direction = DIRECTION.DOWN
 end
@@ -43,11 +42,13 @@ function Player:updateAnimation(dt)
 end
 
 function Player:draw()
-    self.animation:draw(SPRITE_SHEET, self.pos.x, self.pos.y, self.pos.r, self.scale.x, self.scale.y)
+    -- Global scale is applied at the Game level, so we draw at normal scale
+    self.animation:draw(SPRITE_SHEET, self.pos.x, self.pos.y, self.pos.r, 1, 1)
 end
 
 function Player:update(dt)
     self.state = STATE.IDLE
+    speed = self.walkSpeed / Game.scale
     if (love.keyboard.isDown("f") and love.keyboard.isDown("s")) or
         (love.keyboard.isDown("e") and love.keyboard.isDown("d")) then
         -- Competing inputs: player is going nowhere.
@@ -56,22 +57,22 @@ function Player:update(dt)
         if love.keyboard.isDown("f") then
             self.state = STATE.WALKING
             self.direction = DIRECTION.RIGHT
-            self.pos.x = self.pos.x + self.walkSpeed * dt
+            self.pos.x = self.pos.x + speed * dt
         end
         if love.keyboard.isDown("s") then
             self.state = STATE.WALKING
             self.direction = DIRECTION.LEFT
-            self.pos.x = self.pos.x - self.walkSpeed * dt
+            self.pos.x = self.pos.x - speed * dt
         end
         if love.keyboard.isDown("e") then
             self.state = STATE.WALKING
             self.direction = DIRECTION.UP
-            self.pos.y = self.pos.y - self.walkSpeed * dt
+            self.pos.y = self.pos.y - speed * dt
         end
         if love.keyboard.isDown("d") then
             self.state = STATE.WALKING
             self.direction = DIRECTION.DOWN
-            self.pos.y = self.pos.y + self.walkSpeed * dt
+            self.pos.y = self.pos.y + speed * dt
         end
     end
     self:updateAnimation(dt)
