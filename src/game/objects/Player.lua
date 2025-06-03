@@ -26,27 +26,6 @@ function Player:new(pos)
     self.direction = DIRECTION.DOWN
 end
 
-function Player:updatePhysics()
-    local vx = 0
-    local vy = 0
-    if self.state == STATE.WALKING then
-        if self.direction == DIRECTION.UP then
-            vy = -self.walkSpeed
-        elseif self.direction == DIRECTION.LEFT then
-            vx = -self.walkSpeed
-        elseif self.direction == DIRECTION.RIGHT then
-            vx = self.walkSpeed
-        else
-            vy = self.walkSpeed
-        end
-    end
-
-    self.collider:setLinearVelocity(vx, vy)
-
-    self.pos.x = self.collider:getX()
-    self.pos.y = self.collider:getY()
-end
-
 function Player:updateAnimation(dt)
     if self.state == STATE.WALKING then
         if self.direction == DIRECTION.UP then
@@ -66,6 +45,8 @@ end
 
 function Player:update(dt)
     self.state = STATE.IDLE
+    local vx = 0
+    local vy = 0
     if (love.keyboard.isDown("f") and love.keyboard.isDown("s")) or
         (love.keyboard.isDown("e") and love.keyboard.isDown("d")) then
         -- Competing inputs: player is going nowhere.
@@ -74,22 +55,29 @@ function Player:update(dt)
         if love.keyboard.isDown("f") then
             self.state = STATE.WALKING
             self.direction = DIRECTION.RIGHT
+            vx = vx + self.walkSpeed
         end
         if love.keyboard.isDown("s") then
             self.state = STATE.WALKING
             self.direction = DIRECTION.LEFT
+            vx = vx - self.walkSpeed
         end
         if love.keyboard.isDown("e") then
             self.state = STATE.WALKING
             self.direction = DIRECTION.UP
+            vy = vy - self.walkSpeed
         end
         if love.keyboard.isDown("d") then
             self.state = STATE.WALKING
             self.direction = DIRECTION.DOWN
+            vy = vy + self.walkSpeed
         end
     end
 
-    self:updatePhysics()
+    self.collider:setLinearVelocity(vx, vy)
+
+    self.pos.x = self.collider:getX()
+    self.pos.y = self.collider:getY()
     self:updateAnimation(dt)
 end
 
