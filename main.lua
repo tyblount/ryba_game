@@ -13,6 +13,8 @@ anim8 = require "lib/anim8"
 sti = require "lib/sti"
 -- Camera control
 gamera = require "lib/gamera"
+-- Physics
+wf = require "lib/windfield"
 -- Push all of our classes into the global space
 require "src/engine"
 require "src/game"

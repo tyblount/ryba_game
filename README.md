@@ -21,6 +21,29 @@ $ love .
   main.lua    -- special file that love runs to start the game
 ```
 
+### Formatting with Prettier
+Prettier is a code formatter that helps maintain consistent code style across your project.
+It makes styling decisions for you (and your team) so that you don't have to spend time on it.
+
+Follow the [installation instructions](https://prettier.io/docs/install) for your editor of choice.
+
+### Lua Language Server
+The Lua Language Server (LLS) makes coding with Lua in an editor a lot easier.
+It provides [a bunch of features](https://luals.github.io/#features) like code completion, error checking, and documentation lookup.
+
+Follow the [installation instructions](https://luals.github.io/#vscode-install) for your editor of choice.
+
+#### Configuration
+Configuration for LLS is defined in `.luarc.json`
+
+#### Install the Löve LLS Addon
+To get editor support for Löve, first we need to install the LLS Addon.
+Follow this link to GitHub and download the code as a ZIP:
+- [Love2D LLS Addon](https://github.com/LuaCATS/love2d/tree/97fa46cd694e09f953157a5c71e7e9adeb99d0c8)
+
+Unzip the file you just downloaded, place it in `lib/types`, and rename it to `love2d`.
+Now, the LLS will be able to find type definitions at `lib/types/love2d`, as defined in `.luarc.json`.
+
 ## Dependencies
 
 ### Löve2D
@@ -40,14 +63,35 @@ Using `Tiled` to create tilemaps and tilesets, which can be downloaded from the 
 And then we're using `Simple-Tiled-Implementation` to load in the map data and render it
 using love.
 
-Download the ZIP from GitHub, and copy just the `sti` folder into `lib/`
-- [Simple-Tiled-Implementation](https://github.com/karai17/Simple-Tiled-Implementation/tree/master)
+Download the ZIP from GitHub at the linked commit, and copy just the `sti` folder into `lib/`
+- [Simple-Tiled-Implementation](https://github.com/karai17/Simple-Tiled-Implementation/tree/a83eb64db2db55e85205f15013eb6e7327be605d)
 
 ### Camera
-Using `gamera` for camera controls
+Using `gamera` for camera management.
 
 Download/copy the file from GitHub to `lib/` (e.g. `lib/gamera.lua`)
 - [gamera.lua](https://github.com/kikito/gamera/blob/e594504397ce2bcb3a7bc73b84aa5ad1b508a39f/gamera.lua)
+
+### Physics
+Using `windfield` for wrapping love's physics implementation and making it simpler to use.
+
+Download the ZIP from GitHub at the linked commit, and copy just the `windfield` folder into `lib/`
+- [windfield](https://github.com/a327ex/windfield/tree/830c6f9c357f31f5c0e53d5721e6dc0d0ccebae1)
+
+**IMPORTANT:**
+For whatever reason, the `windfield` library (which is now archived) defines its own `World` class globally.
+This conflicts with the local `engine/World`, so you need to make a small patch to `windfield/init.lua`.
+Change the following global declaration
+```lua
+-- in windfield/init.lua
+World = {}
+```
+to a module-level `local` declaration
+```lua
+-- in windfield/init.lua
+local World = {}
+```
+
 
 ### Live Reload
 It's a chore to have to quit the game and restart it whenever you make any changes.
@@ -70,29 +114,6 @@ Download/copy from GitHub to `lib/classic.lua`:
 Using OOP certainly isn't a requirement for game dev in Lua, but it's familiar which has value on its own.
 Plus, letting instances reference methods and fields on classes via metatable lookups
 rather than maintaining references with closures better enables live reloading.
-
-### Formatting with Prettier
-Prettier is a code formatter that helps maintain consistent code style across your project.
-It makes styling decisions for you (and your team) so that you don't have to spend time on it.
-
-Follow the [installation instructions](https://prettier.io/docs/install) for your editor of choice.
-
-### Lua Language Server
-The Lua Language Server (LLS) makes coding with Lua in an editor a lot easier.
-It provides [a bunch of features](https://luals.github.io/#features) like code completion, error checking, and documentation lookup.
-
-Follow the [installation instructions](https://luals.github.io/#vscode-install) for your editor of choice.
-
-#### Configuration
-Configuration for LLS is defined in `.luarc.json`
-
-#### Install the Löve LLS Addon
-To get editor support for Löve, first we need to install the LLS Addon.
-Follow this link and download the code there as a ZIP:
-- [Love2D LLS Addon](https://github.com/LuaCATS/love2d/tree/97fa46cd694e09f953157a5c71e7e9adeb99d0c8)
-
-Unzip the file you just downloaded, place it in `lib/types`, and rename it to `love2d`.
-Now, the LLS will be able to find type definitions at `lib/types/love2d`, as defined in `.luarc.json`.
 
 ## References
 Here are some resources that have been helpful so far:

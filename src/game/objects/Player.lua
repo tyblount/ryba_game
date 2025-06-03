@@ -10,6 +10,8 @@ local DIRECTION = { DOWN = 1, UP = 2, LEFT = 3, RIGHT = 4 } -- Sprite sheet orde
 
 function Player:new(pos)
     self.pos = pos
+    self.collider = Game.phys:newBSGRectangleCollider(pos.x, pos.y, SPRITE_W * .8, SPRITE_H * .8, 3)
+    self.collider:setFixedRotation(true)
 
     self.animations = {
         walkDown = anim8.newAnimation(SPRITE_GRID(DIRECTION.DOWN, '1-4'), SPRITE_FRAME_TIME),
@@ -22,6 +24,27 @@ function Player:new(pos)
     self.walkSpeed = 100
     self.state = STATE.IDLE
     self.direction = DIRECTION.DOWN
+end
+
+function Player:updatePhysics()
+    local vx = 0
+    local vy = 0
+    if self.state == STATE.WALKING then
+        if self.direction == DIRECTION.UP then
+            vy = -self.walkSpeed
+        elseif self.direction == DIRECTION.LEFT then
+            vx = -self.walkSpeed
+        elseif self.direction == DIRECTION.RIGHT then
+            vx = self.walkSpeed
+        else
+            vy = self.walkSpeed
+        end
+    end
+
+    self.collider:setLinearVelocity(vx, vy)
+
+    self.pos.x = self.collider:getX()
+    self.pos.y = self.collider:getY()
 end
 
 function Player:updateAnimation(dt)
@@ -41,11 +64,6 @@ function Player:updateAnimation(dt)
     end
 end
 
-function Player:draw()
-    -- Global scale is applied at the Game level, so we draw at normal scale
-    self.animation:draw(SPRITE_SHEET, self.pos.x, self.pos.y, self.pos.r, 1, 1, 8, 8)
-end
-
 function Player:update(dt)
     self.state = STATE.IDLE
     if (love.keyboard.isDown("f") and love.keyboard.isDown("s")) or
@@ -56,23 +74,26 @@ function Player:update(dt)
         if love.keyboard.isDown("f") then
             self.state = STATE.WALKING
             self.direction = DIRECTION.RIGHT
-            self.pos.x = self.pos.x + self.walkSpeed * dt
         end
         if love.keyboard.isDown("s") then
             self.state = STATE.WALKING
             self.direction = DIRECTION.LEFT
-            self.pos.x = self.pos.x - self.walkSpeed * dt
         end
         if love.keyboard.isDown("e") then
             self.state = STATE.WALKING
             self.direction = DIRECTION.UP
-            self.pos.y = self.pos.y - self.walkSpeed * dt
         end
         if love.keyboard.isDown("d") then
             self.state = STATE.WALKING
             self.direction = DIRECTION.DOWN
-            self.pos.y = self.pos.y + self.walkSpeed * dt
         end
     end
+
+    self:updatePhysics()
     self:updateAnimation(dt)
+end
+
+function Player:draw()
+    -- Global scale is applied at the Game level, so we draw at normal scale
+    self.animation:draw(SPRITE_SHEET, self.pos.x, self.pos.y, self.pos.r, 1, 1, SPRITE_W / 2, SPRITE_H / 2)
 end
