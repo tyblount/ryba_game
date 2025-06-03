@@ -12,8 +12,9 @@ $ love .
 ### Repo Organization
 ```
 <root>
-  assets/     -- sprites, backgrounds, sounds, etc.
+  assets/     -- sprites, backgrounds, tilesets, sounds, etc.
   lib/        -- third-party stuff that shouldn't be checked in
+  maps/       -- Tiled project files and .lua maptile data
   src/        -- the majority of the code we're writing lives here
     engine/   -- code that isn't ryba-specific and could be re-used in another game
     game/     -- code specifically for the ryba game
