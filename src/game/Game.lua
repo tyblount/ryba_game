@@ -1,5 +1,5 @@
 Game = {
-    DEBUG = true,
+    DEBUG = false,
 }
 
 function Game.load()
