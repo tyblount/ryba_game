@@ -21,6 +21,8 @@ $ love .
   main.lua    -- special file that love runs to start the game
 ```
 
+## Dependencies
+
 ### Löve2D
 We're using the Löve2D framework to help make the more technical parts of game development easier.
 It's hard to type the o-with-umlaut 'ö' so it may just be referred to as 'love' elsewhere.
@@ -40,6 +42,12 @@ using love.
 
 Download the ZIP from GitHub, and copy just the `sti` folder into `lib/`
 - [Simple-Tiled-Implementation](https://github.com/karai17/Simple-Tiled-Implementation/tree/master)
+
+### Camera
+Using `gamera` for camera controls
+
+Download/copy the file from GitHub to `lib/` (e.g. `lib/gamera.lua`)
+- [gamera.lua](https://github.com/kikito/gamera/blob/e594504397ce2bcb3a7bc73b84aa5ad1b508a39f/gamera.lua)
 
 ### Live Reload
 It's a chore to have to quit the game and restart it whenever you make any changes.

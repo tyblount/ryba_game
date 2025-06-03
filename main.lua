@@ -11,6 +11,8 @@ lurker.path = "src"
 anim8 = require "lib/anim8"
 -- Tilemap loading and rendering
 sti = require "lib/sti"
+-- Camera control
+gamera = require "lib/gamera"
 -- Push all of our classes into the global space
 require "src/engine"
 require "src/game"
