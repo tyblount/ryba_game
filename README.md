@@ -6,7 +6,7 @@
 ### Run
 If you haven't yet, install the dependencies:
 ```sh
-$> chmod +x ./lib/install.sh && ./lib/install.sh
+$> ./lib/install.sh
 ```
 
 Then, from the root directory, start the game with:
