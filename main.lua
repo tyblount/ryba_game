@@ -30,3 +30,12 @@ function love.update(dt)
 end
 
 love.draw = Game.draw
+
+function love.keyreleased(key)
+    if key == ";" then
+        Game.DEBUG = not Game.DEBUG
+    end
+    if key == "\\" then
+        Game.reset()
+    end
+end
