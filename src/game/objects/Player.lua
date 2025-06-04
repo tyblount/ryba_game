@@ -1,10 +1,10 @@
 Player = Object:extend()
 
-local SPRITE_SHEET = love.graphics.newImage("assets/player_sprites.png")
+local SPRITE_SHEET = love.graphics.newImage("assets/sprites_blanc.png")
 local SPRITE_FRAME_TIME = 0.2
-local SPRITE_W = 15
-local SPRITE_H = 15
-local SPRITE_GRID = anim8.newGrid(SPRITE_W, SPRITE_H, SPRITE_SHEET:getWidth(), SPRITE_SHEET:getHeight(), 0, 0, 1)
+local SPRITE_W = 16
+local SPRITE_H = 16
+local SPRITE_GRID = anim8.newGrid(SPRITE_W, SPRITE_H, SPRITE_SHEET:getWidth(), SPRITE_SHEET:getHeight(), 0, 0, 0)
 local STATE = { IDLE = 1, WALKING = 2, }
 local DIRECTION = { DOWN = 1, UP = 2, LEFT = 3, RIGHT = 4 } -- Sprite sheet order is DOWN, UP, LEFT, RIGHT
 
