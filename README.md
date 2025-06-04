@@ -4,16 +4,22 @@
 ## Development Setup
 
 ### Run
-From the root directory, run
+If you haven't yet, install the dependencies:
 ```sh
-$ love .
+$> chmod +x ./lib/install.sh
+$> ./lib/install.sh
+```
+
+Then, from the root directory, start the game with:
+```sh
+$> love .
 ```
 
 ### Repo Organization
 ```
 <root>
   assets/     -- sprites, backgrounds, sounds, etc.
-  lib/        -- third-party stuff that shouldn't be checked in
+  lib/        -- contains an install script to download third-party stuff, and LICENSE files
   src/        -- the majority of the code we're writing lives here
     engine/   -- code that isn't ryba-specific and could be re-used in another game
     game/     -- code specifically for the ryba game
@@ -37,61 +43,46 @@ Follow the [installation instructions](https://luals.github.io/#vscode-install) 
 Configuration for LLS is defined in `.luarc.json`
 
 #### Install the Löve LLS Addon
-To get editor support for Löve, first we need to install the LLS Addon.
-Follow this link to GitHub and download the code as a ZIP:
-- [Love2D LLS Addon](https://github.com/LuaCATS/love2d/tree/97fa46cd694e09f953157a5c71e7e9adeb99d0c8)
-
-Unzip the file you just downloaded, place it in `lib/types`, and rename it to `love2d`.
-Now, the LLS will be able to find type definitions at `lib/types/love2d`, as defined in `.luarc.json`.
+To get editor support for Löve, we need to install the LLS Addon. This will be pulled in along with other dependencies with the `lib/install.sh` script.
 
 ## Dependencies
+Software and libraries we're using to build and run the game.
+
+Most of these are installed automatically with the install script, but the programs that need manual installation are listed first.
 
 ### Löve2D
 We're using the Löve2D framework to help make the more technical parts of game development easier.
-It's hard to type the o-with-umlaut 'ö' so it may just be referred to as 'love' elsewhere.
+It's hard to type the o-with-umlaut 'ö' so it may just be referred to as 'Love2D', 'Love', or even just 'love' elsewhere.
 Follow the [installation instructions](https://love2d.org/wiki/Getting_Started) to install it for your platform.
-
-### Sprite Animation
-Using `anim8` library to lookup animation frames in sprite sheets and animate those frames.
-Download/copy the file from GitHub to `lib/` (e.g. `lib/anim8.lua`)
-- [anim8.lua](https://github.com/kikito/anim8/blob/bd38defa844ab2dfa3bf416a10c45ce376ba4c50/anim8.lua)
 
 ### Maps and Tilesets
 Using `Tiled` to create tilemaps and tilesets, which can be downloaded from the website:
 - https://www.mapeditor.org/download.html
 
-And then we're using `Simple-Tiled-Implementation` to load in the map data and render it
-using love.
+And then we're using `Simple-Tiled-Implementation` to load in the map data and render it using love. The install script will download this for you.
 
-Download the ZIP from GitHub at the linked commit, and copy just the `sti` folder into `lib/`
-- [Simple-Tiled-Implementation](https://github.com/karai17/Simple-Tiled-Implementation/tree/a83eb64db2db55e85205f15013eb6e7327be605d)
+### Sprite Animation
+Using `anim8` library to lookup animation frames in sprite sheets and animate those frames.
 
 ### Camera
-Using `gamera` for camera management.
-
-Download/copy the file from GitHub to `lib/` (e.g. `lib/gamera.lua`)
-- [gamera.lua](https://github.com/kikito/gamera/blob/e594504397ce2bcb3a7bc73b84aa5ad1b508a39f/gamera.lua)
+Using `gamera` for camera management and rendering within the camera view.
 
 ### Physics
 Using `windfield` for wrapping love's physics implementation and making it simpler to use.
 
-Download the ZIP from GitHub at the linked commit, and copy just the `windfield` folder into `lib/`
-- [windfield](https://github.com/a327ex/windfield/tree/830c6f9c357f31f5c0e53d5721e6dc0d0ccebae1)
-
-**IMPORTANT:**
+**PATCH:**
 For whatever reason, the `windfield` library (which is now archived) defines its own `World` class globally.
-This conflicts with the local `engine/World`, so you need to make a small patch to `windfield/init.lua`.
-Change the following global declaration
+This conflicts with the local `engine/World`, so the install script makes a small patch to `windfield/init.lua`.
+
+The following global declaration
 ```lua
 -- in windfield/init.lua
 World = {}
 ```
-to a module-level `local` declaration
+becomes a module-level `local` declaration
 ```lua
--- in windfield/init.lua
 local World = {}
 ```
-
 
 ### Live Reload
 It's a chore to have to quit the game and restart it whenever you make any changes.
@@ -99,17 +90,8 @@ The `lurker` package aims to reload changes while the game is running.
 It also relies on `lume`, which is a library of Lua helper functions written by the
 same developer, [rxi](http://github.com/rxi), aimed at game development.
 
-Download/copy from GitHub to `lib/`
-- [lume.lua](https://github.com/rxi/lume/blob/98847e7812cf28d3d64b289b03fad71dc704547d/lume.lua)
-- [lurker.lua](https://github.com/rxi/lurker/blob/03d1373911f586c1c6d5d557527b5d510190fd94/lurker.lua)
-
-TODO: The process of downloading dependencies should probably be automated somehow.
-
 ### OOP
 We're using `classic` to implement Object-Oriented Programming in Lua.
-
-Download/copy from GitHub to `lib/classic.lua`:
-- [classic.lua](https://github.com/rxi/classic/blob/e5610756c98ac2f8facd7ab90c94e1a097ecd2c6/classic.lua)
 
 Using OOP certainly isn't a requirement for game dev in Lua, but it's familiar which has value on its own.
 Plus, letting instances reference methods and fields on classes via metatable lookups

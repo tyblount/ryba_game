@@ -1,5 +1,7 @@
 # Third-party libraries
 lib/*
+!lib/install.sh
+!lib/LICENSES
 
 # Tiled editor files
 *.tiled-project
