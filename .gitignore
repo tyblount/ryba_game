@@ -6,6 +6,7 @@ lib/*
 # Tiled editor files
 *.tiled-project
 *.tiled-session
+*.tsx
 
 # MacOS
 .DS_Store
