@@ -80,6 +80,15 @@ download_file \
     "$LIB_DIR/lurker.lua" \
     "lurker.lua (live reload)"
 
+# Apply a petty lurker patch because their init message bugs me
+LURKER_INIT="$LIB_DIR/lurker.lua"
+if [ -f "$LURKER_INIT" ]; then
+    echo -e "${YELLOW}Applying lurker patch...${NC}"
+    sed -i.bak 's/lurker.print("Initing lurker")/-- lurker.print("init msg")/' "$LURKER_INIT"
+    rm -f "$LURKER_INIT.bak"
+    echo -e "${GREEN}✓ Applied lurker patch${NC}\n"
+fi
+
 download_file \
     "https://raw.githubusercontent.com/rxi/classic/e5610756c98ac2f8facd7ab90c94e1a097ecd2c6/classic.lua" \
     "$LIB_DIR/classic.lua" \
