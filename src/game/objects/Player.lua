@@ -85,14 +85,14 @@ function Player:update(dt)
     self:updateAnimation(dt)
 end
 
--- Check the next tile
 function Player:interact()
     if Game.mode == GameMode.FISH then
-        local minigame = Game.world:findFirst(nil, "Minigame")
-        minigame:onInteract()
+        Game.minigame:onInteract()
         return
     end
 
+    -- Check the next tile in the direction the player is facing
+    -- to see if there's something to interact with.
     local target = Pos(self.pos.x, self.pos.y)
     if self.direction == Direction.LEFT then
         target.x = target.x - Game.map.tileSize
@@ -104,9 +104,9 @@ function Player:interact()
     elseif self.direction == Direction.DOWN then
         target.y = target.y + Game.map.tileSize
     end
-    local match = Game.world:findFirst(function(obj)
-        return obj:intersects(target)
-    end, "Interactable")
+    local match = Game.world:findFirst(function(e, type)
+        return type == "Interactable" and e:overlaps(target)
+    end)
     if (match) then
         match:onInteract()
     end

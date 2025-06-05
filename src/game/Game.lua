@@ -11,17 +11,18 @@ Game = {
 function Game.load()
     Game.world = World()
     Game.phys = wf.newWorld(0, 0)
-    Game.player = Player(Pos(200, 200))
-
     Game.map = Map("maps/pond.lua")
-    Game.mode = GameMode.EXPLORE
     Game.camera = gamera.new(0, 0, Game.map.width, Game.map.height)
+    Game.player = Player(Pos(200, 200))
+    Game.minigame = nil
+    Game.mode = GameMode.EXPLORE
+    Game.world:addEntity(Game.map)
+    Game.world:addEntity(Game.player)
+
     -- Set initial camera scale so that the map overfills the window horizontally a bit.
     winWidth, _ = love.window.getMode()
     local initialScale = (winWidth / Game.map.width) * 1.2
     Game.camera:setScale(initialScale)
-    Game.world:addEntity(Game.map)
-    Game.world:addEntity(Game.player)
 end
 
 function Game.reset()

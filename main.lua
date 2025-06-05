@@ -15,6 +15,8 @@ sti = require "lib/sti"
 gamera = require "lib/gamera"
 -- Physics
 wf = require "lib/windfield"
+-- Helpful utility functions
+lume = require "lib/lume"
 -- Push all of our classes into the global space
 require "src/engine"
 require "src/game"
