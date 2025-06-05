@@ -18,6 +18,7 @@ function Game.load()
     Game.mode = GameMode.EXPLORE
     Game.world:addEntity(Game.map)
     Game.world:addEntity(Game.player)
+    Game.world:addEntity(NPC(Pos(110, 210)), "Interactable")
 
     -- Set initial camera scale so that the map overfills the window horizontally a bit.
     winWidth, _ = love.window.getMode()
