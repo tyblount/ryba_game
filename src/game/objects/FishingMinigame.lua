@@ -95,6 +95,7 @@ function FishingMinigame:draw()
     end
     love.graphics.setLineWidth(4)
     love.graphics.circle("line", self.circlePos.x, self.circlePos.y, self.circleR)
+    love.graphics.setLineWidth(1)
 
     -- Draw the fish sprite (top-left sprite from fish.png)
     love.graphics.setColor(1, 1, 1, 1) -- Reset color to white for sprite
