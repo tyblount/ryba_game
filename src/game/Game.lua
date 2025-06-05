@@ -1,18 +1,24 @@
+GameMode = {
+    EXPLORE = 1,
+    CHAT = 2,
+    FISH = 3,
+}
+
 Game = {
-    DEBUG = false,
+    debug = false,
 }
 
 function Game.load()
     Game.world = World()
     Game.phys = wf.newWorld(0, 0)
     Game.player = Player(Pos(200, 200))
+
     Game.map = Map("maps/pond.lua")
-    mapWidth = Game.map.gameMap.width * Game.map.gameMap.tilewidth
-    mapHeight = Game.map.gameMap.height * Game.map.gameMap.tileheight
-    winWidth, winHeight = love.window.getMode()
+    Game.mode = GameMode.EXPLORE
+    Game.camera = gamera.new(0, 0, Game.map.width, Game.map.height)
     -- Set initial camera scale so that the map overfills the window horizontally a bit.
-    local initialScale = (winWidth / mapWidth) * 1.2
-    Game.camera = gamera.new(0, 0, mapWidth, mapHeight)
+    winWidth, _ = love.window.getMode()
+    local initialScale = (winWidth / Game.map.width) * 1.2
     Game.camera:setScale(initialScale)
     Game.world:addEntity(Game.map)
     Game.world:addEntity(Game.player)
@@ -23,7 +29,7 @@ function Game.reset()
 end
 
 function Game.update(dt)
-    if Game.DEBUG then
+    if Game.debug then
         -- Scale adjustment controls
         if love.keyboard.isDown("=") or love.keyboard.isDown("+") then
             Game.camera:setScale(math.min(Game.camera:getScale() + 4 * dt, 6)) -- Max scale
@@ -40,7 +46,7 @@ end
 
 local function drawWithinCamera()
     Game.world:draw()
-    if (Game.DEBUG) then
+    if (Game.debug) then
         Game.phys:draw()
     end
 end
@@ -48,11 +54,15 @@ end
 function Game.draw()
     Game.camera:draw(drawWithinCamera)
 
-    if (Game.DEBUG) then
-        -- Draw scale DEBUG info (not affected by scaling)
+    if (Game.debug) then
+        -- Draw scale debug info (not affected by scaling)
         love.graphics.setColor(1, 1, 1, 1)
         love.graphics.print("Scale: " .. string.format("%.1f", Game.camera:getScale()) .. "x (-/+)", 10, 10)
     end
+end
+
+function Game.changeMode(gameMode)
+    Game.mode = gameMode
 end
 
 return Game

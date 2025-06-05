@@ -33,9 +33,12 @@ love.draw = Game.draw
 
 function love.keyreleased(key)
     if key == ";" then
-        Game.DEBUG = not Game.DEBUG
+        Game.debug = not Game.debug
     end
     if key == "\\" then
         Game.reset()
+    end
+    if key == "j" then
+        Game.player:interact()
     end
 end
