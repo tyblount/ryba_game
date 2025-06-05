@@ -88,7 +88,8 @@ end
 -- Check the next tile
 function Player:interact()
     if Game.mode == GameMode.FISH then
-        Game.changeMode(GameMode.EXPLORE)
+        local minigame = Game.world:findFirst(nil, "Minigame")
+        minigame:onInteract()
         return
     end
 

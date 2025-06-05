@@ -16,6 +16,7 @@ end
 
 function Fishable:onInteract()
     Game.changeMode(GameMode.FISH)
+    Game.world:addEntity(FishingMinigame(), "Minigame")
 end
 
 function Fishable:update()
