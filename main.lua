@@ -40,7 +40,7 @@ function love.keyreleased(key)
     if key == "\\" then
         Game.reset()
     end
-    if key == "j" then
+    if key == "space" or key == "j" then
         Game.player:interact()
     end
 end
