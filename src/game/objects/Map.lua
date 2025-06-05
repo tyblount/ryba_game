@@ -1,7 +1,5 @@
 Map = Object:extend()
 
--- TODO: generalize this (for fun)
-
 function Map:new(path)
     self.gameMap = sti(path)
 
@@ -38,6 +36,15 @@ function Map:new(path)
     local rightWall = Game.phys:newRectangleCollider(mapWidth, 0, wallThickness, mapHeight)
     rightWall:setType("static")
     table.insert(self.walls, rightWall)
+
+    self.fishable = {}
+    if (self.gameMap.layers["Fishable"]) then
+        for _, obj in pairs(self.gameMap.layers["Fishable"].objects) do
+            local fishable = Game.phys:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)
+            fishable:setType("static")
+            table.insert(self.fishable, fishable)
+        end
+    end
 end
 
 function Map:draw()

@@ -1,6 +1,5 @@
 require "src/engine/objects/Background"
 require "src/engine/objects/Entity"
-require "src/engine/objects/Map"
 require "src/engine/objects/Pos"
 require "src/engine/objects/Size"
 require "src/engine/objects/Vec2"
