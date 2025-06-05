@@ -13,6 +13,13 @@ function World:addEntity(e, type)
     })
 end
 
+function World:addEntityToBack(e, type)
+    table.insert(self.entities, 1, {
+        obj = e,
+        type = type or DEFAULT_TYPE,
+    })
+end
+
 function World:findFirst(fn)
     local e = lume.match(self.entities, function(e)
         return fn(e.obj, e.type)

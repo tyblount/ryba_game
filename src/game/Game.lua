@@ -16,7 +16,7 @@ function Game.load()
     Game.player = Player(Pos(200, 200))
     Game.minigame = nil
     Game.mode = GameMode.EXPLORE
-    Game.world:addEntity(Game.map)
+    Game.world:addEntityToBack(Game.map)
     Game.world:addEntity(Game.player)
     Game.world:addEntity(NPC(Pos(110, 210)), "Interactable")
 
